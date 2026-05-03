@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+/* ── TAILWIND THEME ──────────────────────────────────────────────────── */
+
+@theme {
+  /* Fonts — référencent les variables injectées par next/font */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* Couleurs solides — génèrent les utilitaires Tailwind (bg-*, text-*, etc.) */
+  --color-bg:             #FAFAFA;
+  --color-black:          #0A0A0A;
+  --color-text:           #1A1A1A;
+  --color-muted:          #666666;
+  --color-muted-2:        #999999;
+  --color-dim:            #D4D4D4;
+  --color-accent:         #2563EB;
+  --color-accent-success: #10B981;
+}
+
+/* ── DESIGN TOKENS CSS ───────────────────────────────────────────────── */
+
+:root {
+  /* Surfaces */
+  --bg:          #FAFAFA;
+  --bg-1:        rgba(255,255,255,0.75);
+  --bg-2:        rgba(245,245,245,0.7);
+  --bg-1-solid:  #FFFFFF;
+  --bg-2-solid:  #F5F5F5;
+  --surface:     rgba(0,0,0,0.02);
+  --surface-2:   rgba(0,0,0,0.04);
+  --surface-hover: rgba(0,0,0,0.06);
+
+  /* Texte */
+  --black:   #0A0A0A;
+  --text:    #1A1A1A;
+  --muted:   #666666;
+  --muted-2: #999999;
+  --dim:     #D4D4D4;
+
+  /* Bordures hairlines */
+  --border:        rgba(0,0,0,0.08);
+  --border-hover:  rgba(0,0,0,0.16);
+  --border-strong: rgba(0,0,0,0.24);
+
+  /* Accents */
+  --accent:         #2563EB;
+  --accent-glow:    rgba(37,99,235,0.10);
+  --accent-dim:     rgba(37,99,235,0.04);
+  --accent-success: #10B981;
+}
+
+/* ── BASE ────────────────────────────────────────────────────────────── */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: "ss01", "cv11", "tnum";
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    overflow-x: hidden;
+    cursor: none;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+}

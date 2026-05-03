@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maxime Maguet — Développeur Fullstack JS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* Blanc pur, presque éclatant */
+  --bg: #FAFAFA;
+  --bg-1: rgba(255,255,255,0.75);
+  --bg-2: rgba(245,245,245,0.7);
+  --bg-1-solid: #FFFFFF;
+  --bg-2-solid: #F5F5F5;
+  --surface: rgba(0,0,0,0.02);
+  --surface-2: rgba(0,0,0,0.04);
+  --surface-hover: rgba(0,0,0,0.06);
+
+  /* Noir profond pour le texte */
+  --black: #0A0A0A;
+  --text: #1A1A1A;
+  --muted: #666666;
+  --muted-2: #999999;
+  --dim: #D4D4D4;
+
+  /* Borders très fines */
+  --border: rgba(0,0,0,0.08);
+  --border-hover: rgba(0,0,0,0.16);
+  --border-strong: rgba(0,0,0,0.24);
+
+  /* Accent unique : un bleu profond très précis */
+  --accent: #2563EB;
+  --accent-glow: rgba(37,99,235,0.10);
+  --accent-dim: rgba(37,99,235,0.04);
+}
+
+html {
+  scroll-behavior: smooth;
+  font-feature-settings: "ss01", "cv11", "tnum";
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+  cursor: none;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── PARTICULES NOIRES EN FOND ── */
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Grain ultra-subtil */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+}
+
+/* ── CURSEUR PRÉCIS ── */
+.cursor-dot {
+  position: fixed; top: 0; left: 0;
+  width: 6px; height: 6px;
+  background: var(--black);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s;
+}
+.cursor-ring {
+  position: fixed; top: 0; left: 0;
+  width: 28px; height: 28px;
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
+}
+.cursor-ring.hover {
+  width: 56px; height: 56px;
+  border-color: rgba(0,0,0,0.4);
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 56px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(250,250,250,0.7);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--black);
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo-dot {
+  width: 6px; height: 6px;
+  background: var(--black);
+  border-radius: 50%;
+}
+.nav-links {
+  display: flex; gap: 40px;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.nav-links a:hover {
+  color: var(--black);
+}
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--black);
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid var(--border-hover);
+  border-radius: 8px;
+  background: var(--bg-1);
+  transition: all 0.2s ease;
+}
+.nav-cta:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-2);
+}
+.nav-cta .arrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  transition: transform 0.2s, color 0.2s;
+}
+.nav-cta:hover .arrow {
+  transform: translateX(2px);
+  color: var(--black);
+}
+
+/* ── CONTAINER ── */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 56px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  padding: 120px 0 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  gap: 80px;
+  align-items: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+  margin-bottom: 32px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  background: var(--bg-1);
+  width: fit-content;
+}
+.eyebrow-dot {
+  width: 6px; height: 6px;
+  background: #10B981;
+  border-radius: 50%;
+  position: relative;
+}
+.eyebrow-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  background: #10B981;
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: ping 2.4s cubic-bezier(0,0,0.2,1) infinite;
+}
+@keyframes ping {
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+
+.hero-title {
+  font-size: clamp(56px, 7vw, 88px);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  color: var(--black);
+  margin-bottom: 24px;
+}
+.hero-title .accent {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--muted);
+  display: block;
+  font-family: 'Inter', serif;
+  letter-spacing: -0.03em;
+}
+
+.hero-sub {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--text);
+  max-width: 520px;
+  margin-bottom: 40px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+.hero-sub strong {
+  color: var(--black);
+  font-weight: 500;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: none;
+  transition: all 0.2s ease;
+  letter-spacing: -0.005em;
+}
+.btn-primary {
+  background: var(--black);
+  color: var(--bg-1);
+  border: 1px solid var(--black);
+}
+.btn-primary:hover {
+  background: #1A1A1A;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.btn-secondary {
+  background: var(--bg-1);
+  color: var(--black);
+  border: 1px solid var(--border-hover);
+}
+.btn-secondary:hover {
+  background: var(--bg-2);
+  border-color: var(--border-strong);
+}
+.btn .arrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  transition: transform 0.2s;
+}
+.btn:hover .arrow { transform: translateX(2px); }
+
+.hero-meta {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.meta-item {}
+.meta-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted-2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+.meta-value {
+  font-size: 14px;
+  color: var(--black);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ── HERO RIGHT — CARD ── */
+.hero-card {
+  background: var(--bg-1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,1) inset,
+    0 20px 60px rgba(0,0,0,0.06),
+    0 4px 16px rgba(0,0,0,0.04),
+    0 0 0 1px rgba(0,0,0,0.02);
+}
+
+.card-header {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-2);
+}
+.card-header-l {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--dim);
+}
+.card-header-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  margin-left: 8px;
+}
+.card-header-r {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted-2);
+}
+
+.card-body { padding: 28px 24px; }
+
+.card-photo-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.card-photo {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F0F0F0, #E0E0E0);
+  border: 1px solid var(--border-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--black);
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+.card-photo-info {
+  flex: 1;
+}
+.card-photo-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--black);
+  margin-bottom: 4px;
+  letter-spacing: -0.015em;
+}
+.card-photo-role {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: -0.005em;
+}
+
+.card-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.card-stat {
+  background: var(--bg-2);
+  padding: 16px 18px;
+}
+.card-stat-num {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black);
+  letter-spacing: -0.03em;
+  font-feature-settings: "tnum";
+  margin-bottom: 2px;
+}
+.card-stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+.card-row-label {
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+.card-row-value {
+  color: var(--black);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+.card-row-value.accent-text {
+  color: #10B981;
+}
+
+/* ── SECTION HEADER ── */
+.section {
+  padding: 120px 0;
+  position: relative;
+  z-index: 2;
+}
+.section-head {
+  margin-bottom: 64px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 60px;
+  align-items: baseline;
+}
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--muted-2);
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-num::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--border-hover);
+}
+.section-title {
+  font-size: clamp(40px, 4.5vw, 56px);
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: -0.035em;
+  color: var(--black);
+}
+.section-title .italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* ── PARCOURS ── */
+.parcours {
+  border-top: 1px solid var(--border);
+}
+.parcours-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+.parc-item {
+  padding: 36px 32px;
+  border-right: 1px solid var(--border);
+  position: relative;
+  transition: background 0.3s ease;
+}
+.parc-item:last-child { border-right: none; }
+.parc-item:hover {
+  background: var(--bg-2);
+}
+.parc-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 1px;
+  background: var(--black);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.parc-item:hover::before { transform: scaleX(1); }
+
+.parc-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted-2);
+  letter-spacing: 0.1em;
+  margin-bottom: 24px;
+}
+.parc-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--bg-2);
+  border: 1px solid var(--border-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+.parc-years {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  letter-spacing: -0.005em;
+}
+.parc-role {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--black);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.parc-co {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  letter-spacing: -0.005em;
+}
+.parc-desc {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+}
+
+/* ── PROJECTS ── */
+.projects {
+  border-top: 1px solid var(--border);
+}
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.project {
+  background: var(--bg-1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.project:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+}
+
+.project-info {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  padding: 5px 10px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: fit-content;
+}
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+.status-dot.live { background: #10B981; }
+.status-dot.dev { background: var(--accent); }
+
+.project-name {
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--black);
+  letter-spacing: -0.035em;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+.project-tagline {
+  font-size: 14px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 24px;
+  letter-spacing: -0.005em;
+}
+.project-desc {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 28px;
+  max-width: 440px;
+  letter-spacing: -0.005em;
+}
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 32px;
+}
+.tech {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 4px 10px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  letter-spacing: -0.005em;
+}
+.project-actions { display: flex; gap: 10px; }
+.proj-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 7px;
+  text-decoration: none;
+  cursor: none;
+  transition: all 0.2s ease;
+  letter-spacing: -0.005em;
+}
+.proj-btn-primary {
+  background: var(--black);
+  color: var(--bg-1);
+}
+.proj-btn-primary:hover { transform: translateY(-1px); }
+.proj-btn-ghost {
+  background: var(--bg-1);
+  color: var(--black);
+  border: 1px solid var(--border-hover);
+}
+.proj-btn-ghost:hover {
+  background: var(--bg-2);
+  border-color: var(--border-strong);
+}
+
+/* Project visual */
+.project-visual {
+  background:
+    radial-gradient(circle at 70% 30%, rgba(0,0,0,0.025) 0%, transparent 60%),
+    var(--bg-2);
+  border-left: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+}
+.project.reverse .project-visual {
+  border-left: none;
+  border-right: 1px solid var(--border);
+  order: -1;
+}
+
+.mockup {
+  width: 280px;
+  background: var(--bg-1);
+  border: 1px solid var(--border-hover);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.02),
+    0 20px 50px rgba(0,0,0,0.10);
+  transform: perspective(1000px) rotateY(-8deg) rotateX(2deg);
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.project.reverse .mockup {
+  transform: perspective(1000px) rotateY(8deg) rotateX(2deg);
+}
+.project:hover .mockup {
+  transform: perspective(1000px) rotateY(-4deg) rotateX(1deg) translateY(-4px);
+}
+.project.reverse:hover .mockup {
+  transform: perspective(1000px) rotateY(4deg) rotateX(1deg) translateY(-4px);
+}
+.mockup-bar {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mockup-bar .d {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--dim);
+}
+.mockup-bar .url {
+  flex: 1;
+  margin-left: 10px;
+  height: 18px;
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.mockup-content { padding: 16px; }
+.mock-line {
+  height: 8px;
+  border-radius: 3px;
+  background: rgba(0,0,0,0.06);
+  margin-bottom: 8px;
+}
+.mock-line.title { width: 60%; height: 14px; background: rgba(0,0,0,0.14); margin-bottom: 12px; }
+.mock-line.short { width: 40%; }
+.mock-line.accent { background: var(--black); width: 30%; opacity: 0.7; }
+.mock-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 16px;
+}
+.mock-card {
+  height: 64px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+/* ── STACK ── */
+.stack {
+  border-top: 1px solid var(--border);
+}
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.stack-col {
+  background: var(--bg-1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  padding: 36px 32px;
+}
+.stack-col-head {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted-2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.stack-col-head .count {
+  color: var(--muted);
+}
+.stack-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.stack-row:last-child { border-bottom: none; }
+.stack-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black);
+  letter-spacing: -0.005em;
+}
+.stack-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+}
+.stack-status .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+.stack-status.ok .dot { background: #10B981; }
+.stack-status.wip .dot { background: var(--black); }
+
+/* ── CONTACT ── */
+.contact {
+  border-top: 1px solid var(--border);
+  padding: 140px 0;
+  position: relative;
+}
+.contact-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+.contact-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted-2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.contact-title {
+  font-size: clamp(56px, 6vw, 80px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 28px;
+  color: var(--black);
+}
+.contact-title .italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--muted);
+}
+.contact-sub {
+  font-size: 17px;
+  color: var(--text);
+  line-height: 1.65;
+  max-width: 560px;
+  margin: 0 auto 48px;
+  letter-spacing: -0.005em;
+}
+.contact-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 64px;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 600px;
+  margin: 0 auto;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.contact-cell {
+  background: var(--bg-1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  padding: 20px 24px;
+  text-align: left;
+  text-decoration: none;
+  display: block;
+  transition: background 0.2s ease;
+}
+.contact-cell:hover { background: var(--bg-2); }
+.cell-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted-2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.cell-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black);
+  letter-spacing: -0.01em;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  background: var(--bg-1);
+}
+.footer-l, .footer-r {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted-2);
+}
+.footer-l span { color: var(--black); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-eyebrow { animation: fadeUp 0.6s ease both; }
+.hero-title { animation: fadeUp 0.7s 0.05s ease both; }
+.hero-sub { animation: fadeUp 0.7s 0.15s ease both; }
+.hero-actions { animation: fadeUp 0.7s 0.25s ease both; }
+.hero-meta { animation: fadeUp 0.7s 0.35s ease both; }
+.hero-card { animation: fadeUp 0.8s 0.15s ease both; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+  .parcours-grid, .stack-grid { grid-template-columns: 1fr; }
+  .parc-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .parc-item:last-child { border-bottom: none; }
+  .stack-col { padding: 28px; }
+  .project, .project.reverse { grid-template-columns: 1fr; }
+  .project-visual { border-left: none; border-top: 1px solid var(--border); min-height: 280px; }
+  .project.reverse .project-visual { border-right: none; border-bottom: 1px solid var(--border); order: 0; }
+  .section-head { grid-template-columns: 1fr; gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    Maxime Maguet
+  </div>
+  <div class="nav-links">
+    <a href="#parcours">Parcours</a>
+    <a href="#projects">Projets</a>
+    <a href="#stack">Stack</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="mailto:Maxime.maguet@gmail.com" class="nav-cta">
+    Me contacter <span class="arrow">→</span>
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">
+          <div class="eyebrow-dot"></div>
+          Disponible pour alternance · Sept. 2026
+        </div>
+
+        <h1 class="hero-title">
+          Maxime Maguet,<br>
+          <span class="accent">développeur fullstack.</span>
+        </h1>
+
+        <p class="hero-sub">
+          <strong>10 ans à gérer des systèmes audio critiques en live</strong> — stades, arenas, tournées internationales.
+          Aujourd'hui, la même rigueur appliquée au code. Fullstack JS avec une spécialisation DevOps en amont.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">
+            Voir les projets <span class="arrow">→</span>
+          </a>
+          <a href="#contact" class="btn btn-secondary">
+            Prendre contact
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="meta-item">
+            <div class="meta-label">Localisation</div>
+            <div class="meta-value">Toulouse, France</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Contrat</div>
+            <div class="meta-value">Pro · 100% OPCO</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Démarrage</div>
+            <div class="meta-value">Septembre 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="card-header">
+          <div class="card-header-l">
+            <div class="card-dot"></div>
+            <div class="card-dot"></div>
+            <div class="card-dot"></div>
+            <div class="card-header-title">profile.json</div>
+          </div>
+          <div class="card-header-r">v2.026</div>
+        </div>
+        <div class="card-body">
+          <div class="card-photo-row">
+            <div class="card-photo">MM</div>
+            <div class="card-photo-info">
+              <div class="card-photo-name">Maxime Maguet</div>
+              <div class="card-photo-role">Développeur Fullstack JS · Toulouse</div>
+            </div>
+          </div>
+
+          <div class="card-stats">
+            <div class="card-stat">
+              <div class="card-stat-num">10<span style="color:var(--muted);font-size:14px">y</span></div>
+              <div class="card-stat-label">// systems</div>
+            </div>
+            <div class="card-stat">
+              <div class="card-stat-num">2</div>
+              <div class="card-stat-label">// projets prod</div>
+            </div>
+          </div>
+
+          <div class="card-list">
+            <div class="card-row">
+              <div class="card-row-label">stack</div>
+              <div class="card-row-value">React · Node · Mongo</div>
+            </div>
+            <div class="card-row">
+              <div class="card-row-label">specialty</div>
+              <div class="card-row-value">DevOps</div>
+            </div>
+            <div class="card-row">
+              <div class="card-row-label">status</div>
+              <div class="card-row-value accent-text">● Disponible</div>
+            </div>
+            <div class="card-row">
+              <div class="card-row-label">languages</div>
+              <div class="card-row-value">FR · EN</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARCOURS -->
+<section class="section parcours" id="parcours">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">01 / Parcours</div>
+      <h2 class="section-title">
+        Trois actes,<br>
+        <span class="italic">un fil rouge.</span>
+      </h2>
+    </div>
+
+    <div class="parcours-grid">
+      <div class="parc-item">
+        <div class="parc-num">01</div>
+        <div class="parc-icon">🎵</div>
+        <div class="parc-years">2011 — 2021</div>
+        <div class="parc-role">Ingénieur du Son Système</div>
+        <div class="parc-co">Dushow · Prestation live</div>
+        <p class="parc-desc">
+          Réseaux audio Dante/AVB. Stades jusqu'à 80 000 spectateurs. Zéro tolérance au downtime, résolution d'incidents en temps réel.
+        </p>
+      </div>
+
+      <div class="parc-item">
+        <div class="parc-num">02</div>
+        <div class="parc-icon">🍷</div>
+        <div class="parc-years">2022 — 2025</div>
+        <div class="parc-role">Responsable Caveau & Guide</div>
+        <div class="parc-co">AOC Gigondas · Le Nez des Papes</div>
+        <p class="parc-desc">
+          Gestion opérationnelle complète. Clientèle internationale. WSET Niveau 3 Distinction. Comptabilité, management, communication.
+        </p>
+      </div>
+
+      <div class="parc-item">
+        <div class="parc-num">03</div>
+        <div class="parc-icon">⚡</div>
+        <div class="parc-years">2026 →</div>
+        <div class="parc-role">Développeur Fullstack JS</div>
+        <div class="parc-co">La Capsule · RNCP Niveau 6</div>
+        <p class="parc-desc">
+          React, Node.js, MongoDB, Redux, JWT. Spécialisation DevOps de 5 semaines. Alternance contrat de pro à Toulouse.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section projects" id="projects">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">02 / Projets</div>
+      <h2 class="section-title">
+        Du code<br>
+        <span class="italic">en production.</span>
+      </h2>
+    </div>
+
+    <div class="project-list">
+      <article class="project">
+        <div class="project-info">
+          <div class="project-status">
+            <div class="status-dot live"></div>
+            MVP déployé · Android
+          </div>
+          <h3 class="project-name">Astrodex</h3>
+          <div class="project-tagline">// application mobile d'astronomie</div>
+          <p class="project-desc">
+            Boussole GPS interactive pour localiser les astres en temps réel. Intégration NASA APOD et OpenWeather, authentification JWT, upload Cloudinary. Lead Tech sur une équipe de 5.
+          </p>
+          <div class="project-tech">
+            <span class="tech">React Native</span>
+            <span class="tech">Node.js</span>
+            <span class="tech">MongoDB</span>
+            <span class="tech">Redux Persist</span>
+            <span class="tech">Expo EAS</span>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/Maxime-Maguet/astrodex-frontend" class="proj-btn proj-btn-primary">
+              GitHub <span>→</span>
+            </a>
+            <a href="#" class="proj-btn proj-btn-ghost">APK Android</a>
+          </div>
+        </div>
+        <div class="project-visual">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="d"></div><div class="d"></div><div class="d"></div>
+              <div class="url"></div>
+            </div>
+            <div class="mockup-content">
+              <div class="mock-line title"></div>
+              <div class="mock-line short"></div>
+              <div class="mock-line accent"></div>
+              <div class="mock-grid">
+                <div class="mock-card"></div>
+                <div class="mock-card"></div>
+                <div class="mock-card"></div>
+                <div class="mock-card"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="project reverse">
+        <div class="project-info">
+          <div class="project-status">
+            <div class="status-dot live"></div>
+            Déployé en production
+          </div>
+          <h3 class="project-name">Respawn</h3>
+          <div class="project-tagline">// hub gaming personnel</div>
+          <p class="project-desc">
+            Bibliothèque de jeux et découverte par tendances et nouvelles sorties. Architecture fullstack web complète. Intégration RAWG API, recherche temps réel, gestion de bibliothèque CRUD.
+          </p>
+          <div class="project-tech">
+            <span class="tech">React/Vite</span>
+            <span class="tech">Tailwind v4</span>
+            <span class="tech">shadcn/ui</span>
+            <span class="tech">TanStack Query</span>
+            <span class="tech">MongoDB Atlas</span>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/Maxime-Maguet/respawn-backend" class="proj-btn proj-btn-primary">
+              GitHub <span>→</span>
+            </a>
+            <a href="#" class="proj-btn proj-btn-ghost">Démo live</a>
+          </div>
+        </div>
+        <div class="project-visual">
+          <div class="mockup">
+            <div class="mockup-bar">
+              <div class="d"></div><div class="d"></div><div class="d"></div>
+              <div class="url"></div>
+            </div>
+            <div class="mockup-content">
+              <div class="mock-line title"></div>
+              <div class="mock-line"></div>
+              <div class="mock-line short"></div>
+              <div class="mock-grid">
+                <div class="mock-card"></div>
+                <div class="mock-card"></div>
+                <div class="mock-card"></div>
+                <div class="mock-card"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="section stack" id="stack">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">03 / Stack</div>
+      <h2 class="section-title">
+        Les outils<br>
+        <span class="italic">du métier.</span>
+      </h2>
+    </div>
+
+    <div class="stack-grid">
+      <div class="stack-col">
+        <div class="stack-col-head">
+          <span>// Frontend</span>
+          <span class="count">5</span>
+        </div>
+        <div class="stack-row"><span class="stack-name">React</span><span class="stack-status ok"><span class="dot"></span>Confirmé</span></div>
+        <div class="stack-row"><span class="stack-name">React Native</span><span class="stack-status ok"><span class="dot"></span>Confirmé</span></div>
+        <div class="stack-row"><span class="stack-name">Next.js</span><span class="stack-status ok"><span class="dot"></span>Confirmé</span></div>
+        <div class="stack-row"><span class="stack-name">Redux · TanStack</span><span class="stack-status ok"><span class="dot"></span>Confirmé</span></div>
+        <div class="stack-row"><span class="stack-name">Tailwind v4</span><span class="stack-status ok"><span class="dot"></span>Confirmé</span></div>
+      </div>
+
+      <div class="stack-col">
+        <div class="stack-col-head">
+          <span>// Backend</span>
+          <span class="count">5</span>
+        </div>
+        <div class="stack-row"><span class="stack-name">Node.js</span><span class="stack-status ok"><span class="dot"></span>Confirmé</span></div>
+        <div class="stack-row"><span class="stack-name">Express</span><span class="stack-status ok"><span class="dot"></span>Confirmé</span></div>
+        <div class="stack-row"><span class="stack-name">MongoDB · Mongoose</span><span class="stack-status ok"><span class="dot"></span>Confirmé</span></div>
+        <div class="stack-row"><span class="stack-name">JWT Auth</span><span class="stack-status ok"><span class="dot"></span>Confirmé</span></div>
+        <div class="stack-row"><span class="stack-name">REST APIs</span><span class="stack-status ok"><span class="dot"></span>Confirmé</span></div>
+      </div>
+
+      <div class="stack-col">
+        <div class="stack-col-head">
+          <span>// DevOps · Outils</span>
+          <span class="count">5</span>
+        </div>
+        <div class="stack-row"><span class="stack-name">Git · GitHub</span><span class="stack-status ok"><span class="dot"></span>Confirmé</span></div>
+        <div class="stack-row"><span class="stack-name">Expo EAS</span><span class="stack-status ok"><span class="dot"></span>Confirmé</span></div>
+        <div class="stack-row"><span class="stack-name">Docker</span><span class="stack-status wip"><span class="dot"></span>En cours</span></div>
+        <div class="stack-row"><span class="stack-name">CI/CD pipelines</span><span class="stack-status wip"><span class="dot"></span>En cours</span></div>
+        <div class="stack-row"><span class="stack-name">Kubernetes</span><span class="stack-status wip"><span class="dot"></span>En cours</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-eyebrow">04 / Contact</div>
+      <h2 class="contact-title">
+        Parlons<br>
+        <span class="italic">de votre projet.</span>
+      </h2>
+      <p class="contact-sub">
+        Disponible en alternance 12 mois — Contrat de Professionnalisation à Toulouse dès septembre 2026. 100% financé OPCO.
+      </p>
+
+      <div class="contact-actions">
+        <a href="mailto:Maxime.maguet@gmail.com" class="btn btn-primary">
+          Envoyer un message <span class="arrow">→</span>
+        </a>
+        <a href="https://linkedin.com/in/maximemaguet-dev" class="btn btn-secondary">
+          LinkedIn
+        </a>
+      </div>
+
+      <div class="contact-grid">
+        <a href="mailto:Maxime.maguet@gmail.com" class="contact-cell">
+          <div class="cell-label">Email</div>
+          <div class="cell-value">Maxime.maguet@gmail.com</div>
+        </a>
+        <a href="tel:0630772756" class="contact-cell">
+          <div class="cell-label">Téléphone</div>
+          <div class="cell-value">06 30 77 27 56</div>
+        </a>
+        <a href="https://github.com/Maxime-Maguet" class="contact-cell">
+          <div class="cell-label">GitHub</div>
+          <div class="cell-value">github.com/Maxime-Maguet</div>
+        </a>
+        <a href="https://linkedin.com/in/maximemaguet-dev" class="contact-cell">
+          <div class="cell-label">LinkedIn</div>
+          <div class="cell-value">maximemaguet-dev</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-l"><span>Maxime Maguet</span> — Développeur Fullstack JS</div>
+  <div class="footer-r">© 2026 · Toulouse, France</div>
+</footer>
+
+<script>
+// ── PARTICULES NOIRES ──
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Particules : petites billes noires qui flottent doucement
+const particles = Array.from({ length: 90 }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  vx: (Math.random() - 0.5) * 0.4,
+  vy: (Math.random() - 0.5) * 0.4,
+  r: Math.random() * 2.2 + 1.0,
+  opacity: Math.random() * 0.35 + 0.18,
+}));
+
+let mouseX = -1000, mouseY = -1000;
+window.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+
+    // Rebond aux bords
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+    // Léger effet de répulsion souris
+    const dx = p.x - mouseX;
+    const dy = p.y - mouseY;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (dist < 100) {
+      const force = (100 - dist) / 100 * 0.3;
+      p.x += (dx / dist) * force;
+      p.y += (dy / dist) * force;
+    }
+
+    // Dessin de la particule
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0,0,0,${p.opacity})`;
+    ctx.fill();
+  });
+
+  // Lignes entre particules proches
+  particles.forEach((p, i) => {
+    particles.slice(i + 1).forEach(p2 => {
+      const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+      if (dist < 150) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.strokeStyle = `rgba(0,0,0,${0.18 * (1 - dist / 150)})`;
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
+      }
+    });
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
+
+// ── CURSEUR PRÉCIS ──
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px';
+  dot.style.top = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.18;
+  ry += (my - ry) * 0.18;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .parc-item, .project, .contact-cell').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+});
+</script>
+</body>
+</html>
