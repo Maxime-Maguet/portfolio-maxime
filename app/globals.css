@@ -341,8 +341,11 @@
   padding-top: 32px;
   border-top: 1px solid var(--border);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 640px) {
+  .hero-meta { grid-template-columns: repeat(3, 1fr); gap: 32px; }
 }
 .meta-label {
   font-family: var(--font-mono);
@@ -485,9 +488,12 @@
 /* ── SECTION COMMUNE ─────────────────────────────────────────────────── */
 
 .section {
-  padding: 120px 0;
+  padding: 80px 0;
   position: relative;
   z-index: 2;
+}
+@media (min-width: 1024px) {
+  .section { padding: 120px 0; }
 }
 
 .section-head {
@@ -1004,9 +1010,12 @@
 
 .contact {
   border-top: 1px solid var(--border);
-  padding: 140px 0;
+  padding: 80px 0;
   position: relative;
   z-index: 2;
+}
+@media (min-width: 1024px) {
+  .contact { padding: 140px 0; }
 }
 
 .contact-inner {
@@ -1025,7 +1034,7 @@
 }
 
 .contact-title {
-  font-size: clamp(48px, 6vw, 80px);
+  font-size: clamp(36px, 6vw, 80px);
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1;
@@ -1101,8 +1110,9 @@ footer {
   border-top: 1px solid var(--border);
   padding: 24px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
   position: relative;
   z-index: 2;
   background: var(--bg-1);
@@ -1110,7 +1120,12 @@ footer {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 @media (min-width: 768px) {
-  footer { padding: 24px 56px; }
+  footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 56px;
+  }
 }
 
 .footer-l,

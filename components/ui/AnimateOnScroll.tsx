@@ -31,7 +31,7 @@ export default function AnimateOnScroll({
           observer.disconnect()
         }
       },
-      { rootMargin: '0px 0px -160px 0px', threshold: 0 }
+      { rootMargin: '0px 0px -80px 0px', threshold: 0 }
     )
 
     observer.observe(el)
