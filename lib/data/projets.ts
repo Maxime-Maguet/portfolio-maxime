@@ -14,6 +14,9 @@ export type Project = {
   tech: readonly string[]
   links: readonly ProjectLink[]
   screenshot?: string
+  screenshotType?: 'browser' | 'mobile'
+  video?: string
+  videoPoster?: string
   reverse?: boolean
 }
 
@@ -30,6 +33,8 @@ export const projets: Project[] = [
       { label: 'GitHub →', href: 'https://github.com/Maxime-Maguet/astrodex-frontend', variant: 'primary' },
       { label: 'APK Android', href: 'https://github.com/Maxime-Maguet/astrodex-frontend/releases/tag/v1.0.0', variant: 'ghost' },
     ],
+    video: '/videos/astrodex_final.mp4',
+    videoPoster: '/images/astrodex_picture.png',
   },
   {
     id: 'respawn',

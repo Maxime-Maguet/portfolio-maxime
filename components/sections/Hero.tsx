@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { cardRows, cardStats, heroMeta } from '@/lib/data/hero'
 
 export default function Hero() {
@@ -60,7 +61,16 @@ export default function Hero() {
 
             <div className="card-body">
               <div className="card-photo-row">
-                <div className="card-photo" aria-hidden="true">MM</div>
+                <div className="card-photo">
+                  <Image
+                    src="/images/maxime.jpg"
+                    alt="Maxime Maguet"
+                    width={96}
+                    height={96}
+                    className="card-photo-img"
+                    priority
+                  />
+                </div>
                 <div className="card-photo-info">
                   <div className="card-photo-name">Maxime Maguet</div>
                   <div className="card-photo-role">

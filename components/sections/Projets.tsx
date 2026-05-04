@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import { projets } from '@/lib/data/projets'
+import ProjectVideoPlayer from '@/components/ui/ProjectVideoPlayer'
+import AnimateOnScroll from '@/components/ui/AnimateOnScroll'
 
-function ProjectMockup({ screenshot, name }: { screenshot?: string; name: string }) {
+function BrowserMockup({ screenshot, name }: { screenshot: string; name: string }) {
   return (
     <div className="mockup">
       <div className="mockup-bar">
@@ -10,29 +12,40 @@ function ProjectMockup({ screenshot, name }: { screenshot?: string; name: string
         <span className="mockup-dot" />
         <span className="mockup-url" />
       </div>
-      {screenshot ? (
-        <div className="mockup-screenshot">
-          <Image
-            src={screenshot}
-            alt={`Capture d'écran ${name}`}
-            width={560}
-            height={360}
-            className="mockup-img"
-          />
+      <div className="mockup-screenshot">
+        <Image
+          src={screenshot}
+          alt={`Capture d'écran ${name}`}
+          width={560}
+          height={360}
+          className="mockup-img"
+        />
+      </div>
+    </div>
+  )
+}
+
+
+function AbstractMockup() {
+  return (
+    <div className="mockup">
+      <div className="mockup-bar">
+        <span className="mockup-dot" />
+        <span className="mockup-dot" />
+        <span className="mockup-dot" />
+        <span className="mockup-url" />
+      </div>
+      <div className="mockup-content">
+        <div className="mock-line title" />
+        <div className="mock-line short" />
+        <div className="mock-line accent" />
+        <div className="mock-grid">
+          <div className="mock-card" />
+          <div className="mock-card" />
+          <div className="mock-card" />
+          <div className="mock-card" />
         </div>
-      ) : (
-        <div className="mockup-content">
-          <div className="mock-line title" />
-          <div className="mock-line short" />
-          <div className="mock-line accent" />
-          <div className="mock-grid">
-            <div className="mock-card" />
-            <div className="mock-card" />
-            <div className="mock-card" />
-            <div className="mock-card" />
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   )
 }
@@ -42,15 +55,15 @@ export default function Projets() {
     <section className="section projects" id="projets">
       <div className="container">
 
-        <div className="section-head">
+        <AnimateOnScroll className="section-head">
           <div className="section-num">02 / Projets</div>
           <h2 className="section-title">
             Du code<br />
             <span className="italic">en production.</span>
           </h2>
-        </div>
+        </AnimateOnScroll>
 
-        <div className="project-list">
+        <AnimateOnScroll className="project-list" stagger>
           {projets.map((projet) => (
             <article
               key={projet.id}
@@ -88,11 +101,21 @@ export default function Projets() {
               </div>
 
               <div className="project-visual">
-                <ProjectMockup screenshot={projet.screenshot} name={projet.name} />
+                {projet.video && (
+                  <ProjectVideoPlayer
+                    src={projet.video}
+                    name={projet.name}
+                    poster={projet.videoPoster}
+                  />
+                )}
+                {!projet.video && projet.screenshot && (
+                  <BrowserMockup screenshot={projet.screenshot} name={projet.name} />
+                )}
+                {!projet.video && !projet.screenshot && <AbstractMockup />}
               </div>
             </article>
           ))}
-        </div>
+        </AnimateOnScroll>
 
       </div>
     </section>

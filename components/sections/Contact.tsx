@@ -1,10 +1,11 @@
 import { contactLinks, contactCells } from '@/lib/data/contact'
+import AnimateOnScroll from '@/components/ui/AnimateOnScroll'
 
 export default function Contact() {
   return (
     <section className="contact" id="contact">
       <div className="container">
-        <div className="contact-inner">
+        <AnimateOnScroll className="contact-inner" direction="up">
 
           <div className="contact-eyebrow">04 / Contact</div>
 
@@ -47,7 +48,7 @@ export default function Contact() {
             ))}
           </div>
 
-        </div>
+        </AnimateOnScroll>
       </div>
     </section>
   )

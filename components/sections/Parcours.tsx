@@ -1,19 +1,20 @@
 import { parcoursItems } from '@/lib/data/parcours'
+import AnimateOnScroll from '@/components/ui/AnimateOnScroll'
 
 export default function Parcours() {
   return (
     <section className="section parcours" id="parcours">
       <div className="container">
 
-        <div className="section-head">
+        <AnimateOnScroll className="section-head">
           <div className="section-num">01 / Parcours</div>
           <h2 className="section-title">
             Trois actes,<br />
             <span className="italic">un fil rouge.</span>
           </h2>
-        </div>
+        </AnimateOnScroll>
 
-        <div className="parcours-grid">
+        <AnimateOnScroll className="parcours-grid" stagger>
           {parcoursItems.map((item) => (
             <div key={item.num} className="parc-item">
               <div className="parc-num">{item.num}</div>
@@ -24,7 +25,7 @@ export default function Parcours() {
               <p className="parc-desc">{item.desc}</p>
             </div>
           ))}
-        </div>
+        </AnimateOnScroll>
 
       </div>
     </section>
