@@ -30,3 +30,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
+
+
+# AI Tools
+.claude/
+CLAUDE.md
+00_README_SETUP.md
+docs/
