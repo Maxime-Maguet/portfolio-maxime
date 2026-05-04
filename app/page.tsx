@@ -5,6 +5,7 @@ import Hero from '@/components/sections/Hero'
 import Parcours from '@/components/sections/Parcours'
 import Projets from '@/components/sections/Projets'
 import Stack from '@/components/sections/Stack'
+import Contact from '@/components/sections/Contact'
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         <Parcours />
         <Projets />
         <Stack />
+        <Contact />
       </main>
     </>
   )
