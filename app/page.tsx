@@ -2,6 +2,7 @@ import Cursor from '@/components/ui/Cursor'
 import Nav from '@/components/ui/Nav'
 import Particles from '@/components/ui/Particles'
 import Hero from '@/components/sections/Hero'
+import Parcours from '@/components/sections/Parcours'
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <Parcours />
       </main>
     </>
   )
