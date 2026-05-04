@@ -6,6 +6,7 @@ import Parcours from '@/components/sections/Parcours'
 import Projets from '@/components/sections/Projets'
 import Stack from '@/components/sections/Stack'
 import Contact from '@/components/sections/Contact'
+import Footer from '@/components/ui/Footer'
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <Stack />
         <Contact />
       </main>
+      <Footer />
     </>
   )
 }

@@ -1028,6 +1028,32 @@
   letter-spacing: -0.01em;
 }
 
+/* ── FOOTER ───────────────────────────────────────────────────────────── */
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  background: var(--bg-1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+@media (min-width: 768px) {
+  footer { padding: 24px 56px; }
+}
+
+.footer-l,
+.footer-r {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted-2);
+}
+.footer-l span { color: var(--black); }
+
 /* ── BASE ────────────────────────────────────────────────────────────── */
 
 @layer base {
