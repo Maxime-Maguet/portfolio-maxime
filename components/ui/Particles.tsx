@@ -11,7 +11,6 @@ interface Particle {
   opacity: number
 }
 
-const PARTICLE_COUNT = 90
 const CONNECTION_DISTANCE = 150
 const REPULSION_RADIUS = 100
 const REPULSION_FORCE = 0.3
@@ -20,11 +19,16 @@ export default function Particles() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
     const canvas = canvasRef.current
     if (!canvas) return
-
     const ctx = canvas.getContext('2d')
     if (!ctx) return
+
+    const isMobile = window.innerWidth < 768
+    const PARTICLE_COUNT = isMobile ? 40 : 90
+    const connDist = isMobile ? 100 : CONNECTION_DISTANCE
 
     function resize() {
       if (!canvas) return
@@ -85,11 +89,11 @@ export default function Particles() {
           const p = particles[i]
           const p2 = particles[j]
           const dist = Math.hypot(p.x - p2.x, p.y - p2.y)
-          if (dist < CONNECTION_DISTANCE) {
+          if (dist < connDist) {
             ctx.beginPath()
             ctx.moveTo(p.x, p.y)
             ctx.lineTo(p2.x, p2.y)
-            ctx.strokeStyle = `rgba(0,0,0,${0.18 * (1 - dist / CONNECTION_DISTANCE)})`
+            ctx.strokeStyle = `rgba(0,0,0,${0.18 * (1 - dist / connDist)})`
             ctx.lineWidth = 0.6
             ctx.stroke()
           }

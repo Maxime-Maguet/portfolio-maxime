@@ -170,11 +170,27 @@
   animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* ── REDUCED MOTION ──────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .anim-fade-up,
+  .anim-fade-up-y,
+  .anim-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* ── SCROLL ANIMATIONS ───────────────────────────────────────────────── */
 
 .anim-fade-up {
   opacity: 0;
   transform: translateX(-40px);
+  will-change: opacity, transform;
   transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
               transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -186,6 +202,7 @@
 .anim-fade-up-y {
   opacity: 0;
   transform: translateY(36px);
+  will-change: opacity, transform;
   transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
               transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -197,6 +214,7 @@
 .anim-stagger > * {
   opacity: 0;
   transform: translateX(-40px);
+  will-change: opacity, transform;
   transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
               transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -804,6 +822,7 @@
 
 .mockup {
   width: min(80%, 400px);
+  will-change: transform;
   background: var(--bg-1);
   border: 1px solid var(--border-hover);
   border-radius: 12px;
