@@ -94,6 +94,11 @@ export const projets: Project[] = [
         href: "https://github.com/Maxime-Maguet/camille-ad",
         variant: "primary",
       },
+      {
+        label: "Démo live",
+        href: "https://camille-ad.vercel.app/",
+        variant: "ghost",
+      },
     ],
     screenshot: "/images/Camille_AD_Screenshot.png",
   },
