@@ -95,6 +95,6 @@ export const projets: Project[] = [
         variant: "primary",
       },
     ],
-    screenshot: "/images/Camille_AD_screenshot.png",
+    screenshot: "/images/Camille_AD_Screenshot.png",
   },
 ];
