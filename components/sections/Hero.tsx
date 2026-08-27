@@ -13,7 +13,7 @@ export default function Hero() {
               style={{ animationDelay: "0s" }}
             >
               <span className="eyebrow-dot" />
-              Disponible pour alternance · Sept. 2026
+              Disponible immédiatement · CDI / CDD
             </div>
 
             <h1
@@ -29,9 +29,9 @@ export default function Hero() {
               <strong>
                 10 ans à gérer des systèmes audio critiques en live
               </strong>{" "}
-              — clubs, arenas, festivals, stades. Aujourd'hui, la même rigueur
-              appliquée au code. Fullstack JS avec une spécialisation DevOps en
-              amont.
+              — clubs, arenas, festivals, stades. Aujourd'hui, je transpose
+              cette exigence au développement web, avec une approche fullstack
+              de l'interface au backend.
             </p>
 
             <div
@@ -42,7 +42,7 @@ export default function Hero() {
                 Voir les projets <span className="btn-arrow">→</span>
               </a>
               <a href="#contact" className="btn btn-secondary">
-                Prendre contact
+                Me contacter
               </a>
             </div>
 

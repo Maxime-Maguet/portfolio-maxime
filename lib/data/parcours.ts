@@ -21,6 +21,6 @@ export const parcoursItems = [
     years: "2026 →",
     role: "Développeur Fullstack JS",
     company: "La Capsule · RNCP Niveau 6",
-    desc: "React, Node.js, MongoDB, Redux, JWT. Spécialisation DevOps de 5 semaines. Alternance contrat de pro à Toulouse.",
+    desc: "React, Next.js, TypeScript, Node.js, PostgreSQL, MongoDB. Développement d'applications fullstack et mise en œuvre de pratiques DevOps.",
   },
 ] as const;
