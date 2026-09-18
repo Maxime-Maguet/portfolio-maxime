@@ -37,7 +37,7 @@ export const projets: Project[] = [
       },
       {
         label: "APK Android",
-        href: "https://github.com/Maxime-Maguet/astrodex-frontend/releases/tag/v1.0.0",
+        href: "https://github.com/Maxime-Maguet/astrodex-frontend/releases/tag/v1.0.1",
         variant: "ghost",
       },
     ],
@@ -75,7 +75,7 @@ export const projets: Project[] = [
   },
   {
     id: "camille-ad",
-    status: "wip",
+    status: "live",
     statusLabel: "Déployé en production",
     name: "Camille.AD",
     tagline: "// site vitrine · assistante de direction freelance",
