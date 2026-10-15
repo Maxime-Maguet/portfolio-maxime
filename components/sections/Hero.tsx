@@ -78,7 +78,7 @@ export default function Hero() {
               <div className="card-photo-row">
                 <div className="card-photo">
                   <Image
-                    src="/images/maxime.jpg"
+                    src="/images/maximev2.jpeg"
                     alt="Maxime Maguet"
                     width={96}
                     height={96}

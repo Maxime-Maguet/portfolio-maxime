@@ -6,7 +6,7 @@ export const heroMeta = [
 
 export const cardStats = [
   { num: "10", suffix: "y", label: "// systems" },
-  { num: "2", suffix: "", label: "// projets prod" },
+  { num: "3", suffix: "", label: "// projets prod" },
 ] as const;
 
 export const cardRows = [

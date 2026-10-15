@@ -14,6 +14,7 @@ export default function Nav() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-100">
+      {/* Desktop */}
       <nav
         className="flex justify-between items-center px-6 md:px-14 py-5 border-b"
         style={{
